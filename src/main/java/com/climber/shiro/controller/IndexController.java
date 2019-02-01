@@ -15,20 +15,32 @@ import com.climber.shiro.bean.ResultGenerator;
 public class IndexController {
 	@GetMapping("/helloworld")
     public Result<String> helloWorld() {
-        return ResultGenerator.genSuccessResult("helloworld");
+		Subject subject = SecurityUtils.getSubject();
+        if(!subject.isAuthenticated()){
+        	return ResultGenerator.genFailResult("登录失败");
+        } else{
+        	return ResultGenerator.genSuccessResult("helloworld");
+        }
+        
     }
 	
 	@PostMapping("/doLogin")
     public Result<String> doLogin(String username, String password) {
-
+		
+		// 获取当前操作用户
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        try {
-            subject.login(token);
-        } catch (AuthenticationException e) {
-            token.clear();
-            return ResultGenerator.genFailResult("登录失败，用户名或密码错误！");
+        if(!subject.isAuthenticated()){
+        	UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        	try {
+        		// 通过shiro对token进行验证
+        		subject.login(token);
+        	} catch (AuthenticationException e) {
+        		token.clear();
+        		return ResultGenerator.genFailResult("登录失败，用户名或密码错误！");
+        	}
+        	return ResultGenerator.genSuccessResult("登录成功");
+        } else{
+        	return ResultGenerator.genSuccessResult("登录成功");
         }
-        return ResultGenerator.genSuccessResult("登录成功");
     }
 }
