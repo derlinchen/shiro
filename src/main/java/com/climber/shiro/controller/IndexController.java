@@ -43,4 +43,15 @@ public class IndexController {
         	return ResultGenerator.genSuccessResult("登录成功");
         }
     }
+	
+	@GetMapping("/logout")
+	public Result<String> logout(){
+		try {
+			Subject subject = SecurityUtils.getSubject();
+		    subject.logout();
+		} catch (Exception e) {
+			return ResultGenerator.genFailResult("登出失败");
+		}
+		return ResultGenerator.genLogoutResult("登出成功");
+	}
 }
