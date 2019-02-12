@@ -1,7 +1,7 @@
 package com.climber.shiro.bean;
 
 public class ResultGenerator {
-    private static final String DEFAULT_SUCCESS_MESSAGE = "SUCCESS";
+    private static final String DEFAULT_SUCCESS_MESSAGE = "登录成功";
 
     //成功
     public static <T> Result<T> genSuccessResult() {
