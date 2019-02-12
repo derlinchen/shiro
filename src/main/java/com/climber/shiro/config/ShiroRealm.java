@@ -28,9 +28,12 @@ public class ShiroRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		//获取用户账号
         String username = token.getPrincipal().toString();
+        
+        String password = String.valueOf((char[]) token.getCredentials());
 
-        String password = shiroService.getPasswordByUsername(username);
-        if (password != null) {
+        String getpassword = shiroService.getPasswordByUsername(username);
+        
+        if (password.equals(getpassword)) {
             AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                     username,   //认证通过后，存放在session,一般存放user对象
                     password,   //用户数据库中的密码

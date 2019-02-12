@@ -1,8 +1,11 @@
 package com.climber.shiro.bean;
 
 public class Result<T> {
+	
     private ResultCodeEnum code;
+    
     private String message;
+    
     private  T data;
 
     public ResultCodeEnum getCode() {
