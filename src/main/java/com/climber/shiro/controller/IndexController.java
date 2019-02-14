@@ -24,7 +24,7 @@ public class IndexController {
         
     }
 	
-	@PostMapping("/doLogin")
+	@PostMapping("/login")
     public Result<String> doLogin(String username, String password) {
 		
 		// 获取当前操作用户
