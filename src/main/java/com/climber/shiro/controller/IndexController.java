@@ -16,6 +16,7 @@ public class IndexController {
 	@GetMapping("/helloworld")
     public Result<String> helloWorld() {
 		Subject subject = SecurityUtils.getSubject();
+		// 这层判断可以放在拦截器去做
         if(!subject.isAuthenticated()){
         	return ResultGenerator.genFailResult("登录失败");
         } else{
